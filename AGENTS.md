@@ -34,3 +34,10 @@ Personal portfolio site, deployed to GitHub Pages (`https://Hualin-Ding.github.i
 - Section headings use file-style names on screen (`about.md`, `stack.yaml`, ...) and plain names in print (`.fn` / `.pr` spans).
 - `.npmrc` points npm at the public registry because the global registry is a private one that needs auth.
 - Keep phone number and internal project or team names off the site. Contact is email (protected), LinkedIn and GitHub.
+
+## Git identity and pushing (read before committing)
+
+- This is a **personal** repo. Commits and tags must use the repo-local identity: `Hualin Ding <Hualin-Ding@users.noreply.github.com>` (set with `git config --local`). Never commit with the global git identity: on this machine it is a work address.
+- Do **not** modify the global git config or anything for the company GitHub Enterprise account. Only touch this repo's local config.
+- Never write a work email address anywhere in this repo (files, commit messages, tags). Before pushing, check: `git log --format='%ae %ce' | sort -u` must only show the no-reply address.
+- Push with the personal token from `GIT_HUALIN_TOKEN` (set in `~/.zshrc`), passed as a one-off header, for example `git -c http.extraheader="Authorization: Basic $(printf 'x-access-token:%s' "$GIT_HUALIN_TOKEN" | base64)" push origin main`. Never put the token in the remote URL or in any file.
