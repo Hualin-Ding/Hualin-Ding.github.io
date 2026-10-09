@@ -1,0 +1,48 @@
+<canvas id="c" aria-hidden="true"></canvas>
+
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');
+let W,H,dpr=Math.min(devicePixelRatio||1,2),cols,rows,OX,OY,VX,VY;
+const G=16,R=130,TEXT='h1,h2,h3,p,a,.row,.label,.cta,nav,footer';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const m={x:-999,y:-999,vx:0,vy:0,t:0};let onText=false,pres=1,tp=1;
+const hash=k=>{const s=Math.sin(k*127.1)*43758.5453;return s-Math.floor(s)};
+function rs(){W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(dpr,0,0,dpr,0,0);
+ cols=Math.ceil(W/G);rows=Math.ceil(H/G);const n=cols*rows;OX=new Float32Array(n);OY=new Float32Array(n);VX=new Float32Array(n);VY=new Float32Array(n)}
+rs();addEventListener('resize',rs);
+// Each block (nav, header, section, footer) is ONE text zone, so gaps between paragraphs count as text.
+let zones=[];
+function calcZones(){zones=[...document.querySelectorAll('nav,header,section,footer')].map(b=>{let l=1e9,t=1e9,r=-1e9,bt=-1e9;
+ b.querySelectorAll(TEXT).forEach(el=>{const q=el.getBoundingClientRect();if(!q.width)return;l=Math.min(l,q.left);r=Math.max(r,q.right);t=Math.min(t,q.top+scrollY);bt=Math.max(bt,q.bottom+scrollY)});
+ return l<1e9?{l:l-8,r:r+8,t:t-8,b:bt+8}:null}).filter(Boolean)}
+function inText(px,py){return zones.some(z=>px>=z.l&&px<=z.r&&py>=z.t&&py<=z.b)}
+calcZones();addEventListener('resize',calcZones);addEventListener('load',calcZones);document.fonts&&document.fonts.ready.then(calcZones);
+function spring(k,tx,ty){VX[k]=(VX[k]+(tx-OX[k])*.12)*.78;VY[k]=(VY[k]+(ty-OY[k])*.12)*.78;OX[k]+=VX[k];OY[k]+=VY[k]}
+addEventListener('mousemove',e=>{const now=performance.now(),dt=Math.max(8,now-m.t);
+ m.vx+=((e.clientX-m.x)/dt*1000-m.vx)*.4;m.vy+=((e.clientY-m.y)/dt*1000-m.vy)*.4;m.x=e.clientX;m.y=e.clientY;m.t=now;
+ const over=inText(m.x,m.y+scrollY);
+ if(over!==onText){onText=over;tp=over?0:1;fx.toggle&&fx.toggle(!over,now)}
+ fx.move&&fx.move(over,now)});
+addEventListener('mouseleave',()=>{m.x=m.y=-999});
+const out={dx:0,dy:0,a:.1,r:.9,hot:false};
+
+// TRAIL + FIREFLIES: while the mouse moves it lays a glowing trail; once it rests (~0.8s) a firefly ball lights outward from the cursor, then fireflies drift and twinkle around it. Over text both clear away.
+const REST=800; // ms of stillness before fireflies appear (<=1000)
+const IGN=1300; // ms for the firefly ball to light from the cursor out to full size
+const pts=[];let still=0;
+const fx={
+ toggle(on,now){for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const k=j*cols+i,ex=i*G+G/2-m.x,ey=j*G+G/2-m.y,d=Math.hypot(ex,ey)||1;if(d>R*2)continue;
+  if(on){OX[k]=(hash(k)-.5)*50;OY[k]=(hash(k+7)-.5)*50;VX[k]=VY[k]=0}else{VX[k]=ex/d*7+(hash(k)-.5)*4;VY[k]=ey/d*7+(hash(k+3)-.5)*4}}},
+ move(over,now){if(over)return;const l=pts[pts.length-1];if(!l||Math.hypot(m.x-l.x,m.y-l.y)>6){pts.push({x:m.x,y:m.y,t:now});if(pts.length>70)pts.shift()}},
+ frame(now){while(pts.length&&now-pts[0].t>1200)pts.shift();const tg=Math.min(1,Math.max(0,(now-m.t-REST)/IGN));still=tg<still?still+(tg-still)*.3:tg},
+ dot(px,py,k,now,t,o){let e=0;for(const p of pts){const age=(now-p.t)/1000,dx=px-p.x,dy=py-p.y,v=Math.exp(-(dx*dx+dy*dy)/1000)*(1-age/1.2);if(v>e)e=v}
+  const d=Math.hypot(px-m.x,py-m.y),g=Math.max(0,1-d/(R*1.25)),fl=g*pres*Math.min(1,Math.max(0,(still*R*1.25-d)/28)),ph=hash(k)*6.283;
+  spring(k,reduce?0:Math.sin(t*1.2+ph)*6*fl,reduce?0:Math.cos(t*.9+ph*1.7)*6*fl);o.dx=OX[k];o.dy=OY[k];
+  const tw0=.5+.5*Math.sin(t*3+ph*5),tw=1-(1-tw0)*still;
+  o.a=.10+Math.max(e*.8,fl*(.15+.75*tw));o.r=.9+Math.max(e*1.6,fl*(.6+1.6*tw));o.hot=e>.03||fl>.03}};
+(function f(now){x.clearRect(0,0,W,H);const t=now/1000;pres+=(tp-pres)*.1;m.vx*=.92;m.vy*=.92;fx.frame&&fx.frame(now,t);
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const k=j*cols+i,px=i*G+G/2,py=j*G+G/2;out.dx=0;out.dy=0;out.a=.10;out.r=.9;out.hot=false;
+  fx.dot(px,py,k,now,t,out);
+  x.fillStyle=out.hot?`rgba(250,189,47,${Math.min(out.a,.95)})`:'rgba(168,153,132,.10)';x.beginPath();x.arc(px+out.dx,py+out.dy,out.r,0,7);x.fill()}
+ requestAnimationFrame(f)})(performance.now());
+</script>

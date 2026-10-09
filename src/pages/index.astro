@@ -1,74 +1,37 @@
 ---
-const projects = [
-	{
-		name: 'MinionCardsWar-iOS-App',
-		description: 'A card game for iOS built with Swift.',
-		url: 'https://github.com/Hualin-Ding/MinionCardsWar-iOS-App',
-	},
-	{
-		name: 'RemoteController_ClientServer_Python',
-		description: 'A client/server remote controller written in Python.',
-		url: 'https://github.com/Hualin-Ding/RemoteController_ClientServer_Python',
-	},
-	{
-		name: 'GitHubUITesting',
-		description: 'UI testing project written in Java.',
-		url: 'https://github.com/Hualin-Ding/GitHubUITesting',
-	},
-];
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Hualin Ding's personal portfolio" />
-		<title>Hualin Ding</title>
-	</head>
-	<body>
-		<header>
-			<h1>Hualin Ding</h1>
-			<p>Software engineer. Welcome to my portfolio.</p>
-		</header>
-		<main>
-			<section>
-				<h2>Projects</h2>
-				<ul>
-					{
-						projects.map((p) => (
-							<li>
-								<a href={p.url}>{p.name}</a>
-								<p>{p.description}</p>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-			<section>
-				<h2>Links</h2>
-				<ul>
-					<li><a href="https://github.com/Hualin-Ding">GitHub</a></li>
-				</ul>
-			</section>
-		</main>
-	</body>
-</html>
+<Layout
+	title="Hualin Ding — GenAI & Agentic AI Infrastructure Engineer"
+	description="Hualin Ding builds AI agent platforms and the cloud infrastructure behind them. Cloud Engineer at Workday."
+>
+<div class="page">
+<nav><span>~/hualin</span><span><a href="#about">about</a><a href="#work">work</a><a href="#path">path</a><a href="#links">links</a></span></nav>
+<header><div class="label">Hello, I'm</div><h1>Hualin Ding</h1>
+<p class="sub">GenAI &amp; agentic AI infrastructure engineer. I build the platforms that let AI agents run reliably in production.</p>
+<div class="cta"><a href="#work">What I build</a><a href="https://www.linkedin.com/in/hualinding">LinkedIn</a></div></header>
 
-<style>
-	body {
-		font-family: system-ui, sans-serif;
-		max-width: 42rem;
-		margin: 3rem auto;
-		padding: 0 1rem;
-		line-height: 1.6;
-	}
-	li {
-		margin-bottom: 1rem;
-	}
-	li p {
-		margin: 0;
-	}
-</style>
+<section id="about"><h2><i>01</i> about</h2>
+<p>Cloud Engineer at <b>Workday</b>, focused on designing, shipping and scaling AI agent platforms. I work hands-on from LLM prompting and agent design down to infrastructure-as-code and CI/CD, mostly in Python, on Kubernetes and AWS.</p>
+<p>Before AI, I spent years on cloud infrastructure and automation at scale. That background shapes how I treat agents: as production systems that need <b>reliability, observability and governance</b>.</p></section>
+
+<section id="work"><h2><i>02</i> what I build</h2><div class="list">
+<div class="row"><time>agents</time><div><h3>Team-facing AI agents</h3><span>Chat-based Q&amp;A, knowledge-base, and infrastructure drift-detection agents.</span></div></div>
+<div class="row"><time>platform</time><div><h3>Agent hosting platform</h3><span>AWS-native infrastructure to host and manage agents across teams.</span></div></div>
+<div class="row"><time>orchestration</time><div><h3>Orchestration layers</h3><span>Harnesses for reliable, auditable AI workflows.</span></div></div>
+<div class="row"><time>retrieval</time><div><h3>RAG systems</h3><span>Grounding agents in organizational knowledge.</span></div></div>
+<div class="row"><time>security</time><div><h3>Safe execution</h3><span>Auth, governance and guardrails for agent actions.</span></div></div></div></section>
+
+<section id="path"><h2><i>03</i> path</h2><div class="list">
+<div class="row"><time>2025 — now</time><div><h3>Workday</h3><span>Cloud Engineer</span></div></div>
+<div class="row"><time>2018 — 2025</time><div><h3>Juniper Networks</h3><span>Software Engineer · multi-cloud, Kubernetes, GitOps</span></div></div>
+<div class="row"><time>2015 — 2018</time><div><h3>Salesforce</h3><span>Software Engineer · cloud cost, observability</span></div></div>
+<div class="row"><time>2014 — 2015</time><div><h3>QBotix</h3><span>Software Engineer Intern</span></div></div></div></section>
+
+<section><h2><i>04</i> toolbox</h2><p class="tags"><span>Python</span><span>Kubernetes</span><span>AWS</span><span>GCP</span><span>Terraform</span><span>Helm</span><span>ArgoCD</span><span>Grafana</span></p>
+<p>AWS Certified Solutions Architect – Associate · M.S. Computer Science, CSU East Bay</p></section>
+
+<footer id="links"><a href="https://github.com/Hualin-Ding">github</a> &nbsp;/&nbsp; <a href="https://www.linkedin.com/in/hualinding">linkedin</a></footer>
+</div>
+</Layout>
