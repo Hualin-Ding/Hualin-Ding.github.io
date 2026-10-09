@@ -3,7 +3,7 @@
 <script>
 const c=document.getElementById('c'),x=c.getContext('2d');
 let W,H,dpr=Math.min(devicePixelRatio||1,2),cols,rows,OX,OY,VX,VY;
-const G=16,R=130,TEXT='h1,h2,h3,p,a,.row,.label,.cta,nav,footer';
+const G=16,R=130,TEXT='h1,h2,h3,p,a,.row,.label,.cta,.avatar,nav,footer';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const m={x:-999,y:-999,vx:0,vy:0,t:0};let onText=false,pres=1,tp=1;
 const hash=k=>{const s=Math.sin(k*127.1)*43758.5453;return s-Math.floor(s)};
