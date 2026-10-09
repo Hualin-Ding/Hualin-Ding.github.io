@@ -71,6 +71,14 @@ import StreamText from '../components/StreamText.astro';
 </Layout>
 
 <script>
+	// Touch devices have no hover: tap a path row to expand its details, tap another to switch, tap elsewhere to close all.
+	const touch = matchMedia('(hover: none)');
+	document.addEventListener('click', (e) => {
+		if (!touch.matches) return;
+		const row = (e.target as Element).closest('.has-pop');
+		document.querySelectorAll('.has-pop.open').forEach((r) => { if (r !== row) r.classList.remove('open'); });
+		row?.classList.toggle('open');
+	});
 	// "Resume (PDF)": open the print dialog (Save as PDF); the print stylesheet formats it as a resume.
 	const base = document.title;
 	addEventListener('beforeprint', () => { document.title = 'Hualin Ding - Resume'; });
