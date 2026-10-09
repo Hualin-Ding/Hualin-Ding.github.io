@@ -76,27 +76,30 @@ footer{padding:0 0 clamp(40px,8vh,80px);color:var(--dim);font-size:.85rem;text-a
 @media print{
 .fn{display:none}.pr{display:inline}
 .rest{visibility:visible!important}.cur,.trace{display:none!important}
-@page{size:Letter;margin:.4in}
+@page{size:Letter;margin:.5in}
 :root{--fg:#111;--mute:#333;--dim:#555;--acc:#555;--bg1:#cfcbc2}
-html,body{background:#fff!important;color:#111;font-size:9.5pt;line-height:1.35}
-canvas,nav,.cta,.label,.avatar,#work,#about,#contact,footer,section h2 i{display:none!important}
+html,body{background:#fff!important;color:#111;font-size:9.5pt;line-height:1.4}
+canvas,nav,.cta,.label,.avatar,#work,#contact,footer,section h2 i{display:none!important}
 .print-only{display:block}
 .page{max-width:none;padding:0}
-header{padding:0 0 8px;border-bottom:1.5px solid #111;margin-bottom:10px}
-h1{font-size:22pt;margin:0 0 2px;letter-spacing:0}
-.sub{font-size:10.5pt;color:#333;margin:0 0 6px;max-width:none}
-.contact{margin:0;font-size:9.5pt;color:#333}.contact a{color:#111;text-decoration:none}
-section{padding:0 0 2px}
-h2{font-size:9.5pt;font-weight:700;color:#111;text-transform:uppercase;letter-spacing:.12em;margin:0 0 4px}h2::after{background:#999}
-a{color:#111;text-decoration:none}.row h3 a{border:0}
+header{padding:0 0 10px;border-bottom:1.5px solid #111;margin-bottom:14px}
+.hero{display:block}
+h1{font-size:26pt;margin:0 0 4px;letter-spacing:0}
+.sub{font-size:11pt;color:#333;margin:0 0 6px;max-width:none}
+.contact{margin:0;font-size:10pt;color:#333}.contact a{color:#111;text-decoration:none}
+section{padding:0 0 10px}
+h2{font-size:10pt;font-weight:700;color:#111;text-transform:uppercase;letter-spacing:.12em;margin:0 0 6px;break-after:avoid}h2::after{background:#999}
+a{color:#111;text-decoration:none}
 p{color:#222;margin:0 0 6px}p b{color:#111}
 .list{border-top:1px solid #999}
-.row{padding:3px 0!important;background:none!important;break-inside:avoid;border-bottom:1px solid #ddd;grid-template-columns:82px 1fr;gap:0 12px}
-.row time{font-size:9pt;color:#444}.row h3{font-size:10.5pt;color:#111}.row span{font-size:9.5pt;color:#333}
-.has-pop h3::after{content:none!important}.pop{display:block!important;position:static;grid-column:2;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;border:0;padding:4px 0 0;pointer-events:auto}
-.pop li:nth-child(n+4){display:none}.has-pop:nth-of-type(n+2) .pop li:nth-child(n+3){display:none}.has-pop:nth-of-type(4) .pop li:nth-child(n+2){display:none}
-.pop ul{font-size:9pt;color:#222;line-height:1.3;padding-left:1rem}.pop li{margin:0}#certs .row span{display:none}#certs time{visibility:hidden}.pop li::marker{color:#111}
+.row{padding:5px 0!important;background:none!important;break-inside:avoid;border-bottom:1px solid #ddd;grid-template-columns:112px 1fr;gap:0 14px}
+.row time{font-size:9pt;color:#444}.row h3{font-size:10.5pt;color:#111;break-after:avoid}.row span{font-size:9.5pt;color:#333}
+.has-pop h3::after{content:none!important}
+.pop{display:block!important;position:static;grid-column:2;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;border:0;padding:5px 0 0;pointer-events:auto}
+.row.has-pop{display:block;position:relative;padding-left:126px!important;break-inside:auto}.row.has-pop>time{position:absolute;left:0;top:5px}.row.has-pop .pop{padding-top:5px}.pop li{break-inside:avoid}.pop ul{font-size:9.5pt;color:#222;line-height:1.35;padding-left:1.1rem;margin:0}.pop li{margin:1px 0}.pop li::marker{color:#111}
 .tags{color:#222}.tags span:not(:last-child)::after{color:#777}
-#tools .more>summary{display:none!important}#tools .list{display:block;border:0}#tools .row{display:inline-block;vertical-align:top;padding:0!important;border:0;margin:0 14px 0 0;break-inside:avoid}#tools time{display:inline;font-weight:700;color:#111;font-size:8.5pt}#tools .list{line-height:1.3}#tools time::after{content:": "}#tools .tags{display:inline;color:#222}#tools .row .tags span{display:inline-block;font-size:8.5pt;color:#222}
+#tools .more>summary{display:none!important}
+#tools .row .tags span{display:inline-block;font-size:9.5pt;color:#222}
+#certs time{visibility:hidden}
 }
 </style>
