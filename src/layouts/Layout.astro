@@ -57,4 +57,29 @@ footer{padding:0 0 12vh;color:var(--dim);font-size:.85rem}footer a{color:var(--m
 .has-pop:hover .pop,.has-pop:focus-visible .pop{opacity:1;visibility:visible;transform:none}
 @media(hover:none){.pop{position:static;grid-column:1/-1;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;border:0;padding:8px 0 0;pointer-events:auto}}
 @media(max-width:600px){.row{grid-template-columns:1fr;gap:2px}.pop{left:0}}
+.row h3 a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--acc)}.row h3 a:hover{color:var(--acc)}
+.reveal{font:inherit;color:var(--fg);background:none;border:0;border-bottom:1px dashed var(--acc);padding:0;cursor:pointer}.reveal:hover{color:var(--acc)}
+.print-only{display:none}
+@media print{
+@page{size:Letter;margin:.55in}
+:root{--fg:#111;--mute:#333;--dim:#555;--acc:#555;--bg1:#cfcbc2}
+html,body{background:#fff!important;color:#111;font-size:10.5pt;line-height:1.45}
+canvas,nav,.cta,.label,#work,#contact,footer,section h2 i{display:none!important}
+.print-only{display:block}
+.page{max-width:none;padding:0}
+header{padding:0 0 12px;border-bottom:1.5px solid #111;margin-bottom:14px}
+h1{font-size:26pt;margin:0 0 4px;letter-spacing:0}
+.sub{font-size:10.5pt;color:#333;margin:0 0 6px;max-width:none}
+.contact{margin:0;font-size:9.5pt;color:#333}.contact a{color:#111;text-decoration:none}
+section{padding:0 0 12px}
+h2{font-size:9.5pt;font-weight:700;color:#111;text-transform:uppercase;letter-spacing:.12em;margin:0 0 6px}h2::after{background:#999}
+a{color:#111;text-decoration:none}.row h3 a{border:0}
+p{color:#222;margin:0 0 6px}p b{color:#111}
+.list{border-top:1px solid #999}
+.row{padding:7px 0!important;background:none!important;break-inside:avoid;border-bottom:1px solid #ddd;grid-template-columns:105px 1fr;gap:0 14px}
+.row time{font-size:9pt;color:#444}.row h3{font-size:10.5pt;color:#111}.row span{font-size:9.5pt;color:#333}
+.pop{position:static;grid-column:2;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;border:0;padding:4px 0 0;pointer-events:auto}
+.pop ul{font-size:9.5pt;color:#222;line-height:1.4;padding-left:1rem}.pop li{margin:2px 0}.pop li::marker{color:#111}
+.tags{color:#222}.tags span:not(:last-child)::after{color:#777}
+}
 </style>

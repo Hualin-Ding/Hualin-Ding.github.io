@@ -7,10 +7,11 @@ import Layout from '../layouts/Layout.astro';
 	description="Hualin Ding builds AI agent platforms and the cloud infrastructure behind them. Cloud Engineer at Workday."
 >
 <div class="page">
-<nav><span>~/hualin</span><span><a href="#about">about</a><a href="#work">work</a><a href="#path">path</a><a href="#links">links</a></span></nav>
+<nav><span>~/hualin</span><span><a href="#about">about</a><a href="#work">work</a><a href="#path">path</a><a href="#contact">contact</a></span></nav>
 <header><div class="label">Hello, I'm</div><h1>Hualin Ding</h1>
 <p class="sub">GenAI &amp; agentic AI infrastructure engineer. I build the platforms that let AI agents run reliably in production.</p>
-<div class="cta"><a href="#work">What I build</a><a href="https://www.linkedin.com/in/hualinding">LinkedIn</a></div></header>
+<p class="contact print-only"><span id="print-email"></span><a href="https://www.linkedin.com/in/hualinding">linkedin.com/in/hualinding</a> · <a href="https://github.com/Hualin-Ding">github.com/Hualin-Ding</a></p>
+<div class="cta"><a href="#work">What I build</a><a href="#contact">Contact</a><a href="#" id="pdf">Resume (PDF)</a></div></header>
 
 <section id="about"><h2><i>01</i> about</h2>
 <p>Cloud Engineer at <b>Workday</b>, focused on designing, shipping and scaling AI agent platforms. I work hands-on from LLM prompting and agent design down to infrastructure-as-code and CI/CD, mostly in Python, on Kubernetes and AWS.</p>
@@ -60,6 +61,37 @@ import Layout from '../layouts/Layout.astro';
 <section><h2><i>06</i> education</h2><div class="list">
 <div class="row"><time>2011 — 2013</time><div><h3>California State University, East Bay</h3><span>Master's degree, Computer Science</span></div></div></div></section>
 
-<footer id="links"><a href="https://github.com/Hualin-Ding">github</a> &nbsp;/&nbsp; <a href="https://www.linkedin.com/in/hualinding">linkedin</a></footer>
+<section id="contact"><h2><i>07</i> contact</h2><div class="list">
+<div class="row"><time>email</time><div><h3><button type="button" id="reveal" class="reveal">show email address</button></h3><span>Revealed on click to keep it away from spam bots</span></div></div>
+<div class="row"><time>linkedin</time><div><h3><a href="https://www.linkedin.com/in/hualinding">linkedin.com/in/hualinding</a></h3></div></div>
+<div class="row"><time>github</time><div><h3><a href="https://github.com/Hualin-Ding">github.com/Hualin-Ding</a></h3></div></div></div></section>
+
+<footer>© 2026 Hualin Ding</footer>
 </div>
 </Layout>
+
+<script>
+	// "Resume (PDF)": open the print dialog (Save as PDF); the print stylesheet formats it as a resume.
+	const base = document.title;
+	addEventListener('beforeprint', () => { document.title = 'Hualin Ding - Resume'; });
+	addEventListener('afterprint', () => { document.title = base; });
+	// Email is never in the HTML. It is stored reversed + base64, split in pieces, and assembled only after a real user click (or when printing).
+	const ENC = ["bW9jLmxp", "YW1nQGFx", "Z25pZGxo"];
+	const addr = () => atob(ENC.join('')).split('').reverse().join('');
+	document.getElementById('reveal')?.addEventListener('click', (e) => {
+		if (!e.isTrusted) return;
+		const a = addr();
+		const link = document.createElement('a');
+		link.href = 'mailto:' + a;
+		link.textContent = a;
+		(e.currentTarget as HTMLElement).replaceWith(link);
+		document.querySelector('#contact .row span')?.remove();
+	});
+	const pe = document.getElementById('print-email');
+	const fill = () => { if (pe) pe.textContent = addr() + ' · '; };
+	const clear = () => { if (pe) pe.textContent = ''; };
+	addEventListener('beforeprint', fill);
+	addEventListener('afterprint', clear);
+	matchMedia('print').addEventListener('change', (m) => (m.matches ? fill() : clear()));
+	document.getElementById('pdf')?.addEventListener('click', (e) => { e.preventDefault(); print(); });
+</script>
