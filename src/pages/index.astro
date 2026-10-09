@@ -16,11 +16,11 @@ import StreamText from '../components/StreamText.astro';
 <p class="contact print-only"><span id="print-email"></span><a href="https://www.linkedin.com/in/hualinding">linkedin.com/in/hualinding</a> · <a href="https://github.com/Hualin-Ding">github.com/Hualin-Ding</a></p>
 <div class="cta"><a href="#work">What I build</a><a href="#path">Path</a><a href="#certs">Certificates</a></div></header>
 
-<section id="about"><h2><i>01</i> about</h2>
+<section id="about"><h2><i>01</i> <span class="fn">about.md</span><span class="pr">about</span></h2>
 <p>Cloud Engineer at <b>Workday</b>, focused on designing, shipping and scaling AI agent platforms. I work hands-on from LLM prompting and agent design down to infrastructure-as-code and CI/CD, mostly in Python, on Kubernetes and AWS.</p>
 <p>Before AI, I spent years on cloud infrastructure and automation at scale. That background shapes how I treat agents: as production systems that need <b>reliability, observability and governance</b>.</p></section>
 
-<section id="work"><h2><i>02</i> what I build</h2>
+<section id="work"><h2><i>02</i> <span class="fn">agents.md</span><span class="pr">what I build</span></h2>
 <AgentTrace />
 <div class="list">
 <div class="row"><time>agents</time><div><h3>Team-facing AI agents</h3><span>Chat-based Q&amp;A, knowledge-base, and infrastructure drift-detection agents.</span></div></div>
@@ -29,7 +29,7 @@ import StreamText from '../components/StreamText.astro';
 <div class="row"><time>retrieval</time><div><h3>RAG systems</h3><span>Grounding agents in organizational knowledge.</span></div></div>
 <div class="row"><time>security</time><div><h3>Safe execution</h3><span>Auth, governance and guardrails for agent actions.</span></div></div></div></section>
 
-<section id="path"><h2><i>03</i> path</h2><div class="list">
+<section id="path"><h2><i>03</i> <span class="fn">history.log</span><span class="pr">experience</span></h2><div class="list">
 <div class="row has-pop" tabindex="0"><time>2025 — now</time><div><h3>Workday</h3><span>Cloud Engineer</span></div>
 <div class="pop"><ul>
 <li>Design and build AI agent platforms, including team-facing Q&amp;A, knowledge-base and infrastructure drift-detection agents.</li>
@@ -58,24 +58,29 @@ import StreamText from '../components/StreamText.astro';
 <li>Helped migrate an application from on-premises to AWS (EC2, S3, RDS, VPC) with minimal downtime.</li>
 </ul></div></div></div></section>
 
-<section id="tools"><h2><i>04</i> toolbox</h2><div class="list">
+<section id="tools"><h2><i>04</i> <span class="fn">stack.yaml</span><span class="pr">toolbox</span></h2><div class="list">
 <div class="row"><time>coding agents</time><div class="tags"><span>Claude</span><span>Codex</span><span>Cursor</span><span>Cline</span></div></div>
 <div class="row"><time>ai assistants</time><div class="tags"><span>Amazon Quick</span></div></div>
 <div class="row"><time>ai platforms</time><div class="tags"><span>AWS Bedrock</span><span>AWS AgentCore</span><span>Gemini (Vertex AI)</span></div></div>
-<div class="row"><time>agent stack</time><div class="tags"><span>MCP</span><span>Agent Skills</span><span>RAG</span></div></div>
+<div class="row"><time>agent stack</time><div class="tags"><span>MCP</span><span>Agent Skills</span><span>A2A</span><span>Strands Agents SDK</span><span>Claude Agent SDK</span><span>LangChain</span></div></div>
+<div class="row"><time>retrieval</time><div class="tags"><span>RAG</span><span>Embeddings</span><span>Vector stores (OpenSearch, pgvector, Pinecone)</span></div></div>
+<div class="row"><time>llm ops</time><div class="tags"><span>Evals</span><span>Prompt management</span><span>Guardrails (Bedrock)</span></div></div>
 <div class="row"><time>languages</time><div class="tags"><span>Python</span><span>Shell</span></div></div>
 <div class="row"><time>cloud</time><div class="tags"><span>AWS</span><span>GCP</span></div></div>
-<div class="row"><time>containers</time><div class="tags"><span>Kubernetes</span><span>Docker</span></div></div>
+<div class="row"><time>aws services</time><div class="tags"><span>EC2</span><span>S3</span><span>RDS</span><span>VPC</span><span>Lambda</span></div></div>
+<div class="row"><time>containers</time><div class="tags"><span>Kubernetes</span><span>Docker</span><span>EKS</span><span>GKE</span><span>ECS</span></div></div>
+<div class="row"><time>data</time><div class="tags"><span>ScyllaDB</span><span>PostgreSQL</span></div></div>
 <div class="row"><time>iac</time><div class="tags"><span>Terraform</span><span>Helm</span><span>Ansible</span><span>CloudFormation</span></div></div>
-<div class="row"><time>ci/cd</time><div class="tags"><span>Jenkins</span><span>ArgoCD</span><span>CircleCI</span></div></div>
+<div class="row"><time>ci/cd</time><div class="tags"><span>Jenkins</span><span>ArgoCD</span><span>CircleCI</span><span>GitHub Actions</span></div></div>
 <div class="row"><time>orchestration</time><div class="tags"><span>Argo Workflows</span><span>AWS Step Functions</span></div></div>
-<div class="row"><time>observability</time><div class="tags"><span>Datadog</span><span>Splunk</span><span>Prometheus</span><span>Grafana</span></div></div>
-<div class="row"><time>identity</time><div class="tags"><span>Okta</span></div></div></div></section>
+<div class="row"><time>observability</time><div class="tags"><span>Datadog</span><span>Splunk</span><span>Prometheus</span><span>Grafana</span><span>OpenTelemetry</span><span>Langfuse</span></div></div>
+<div class="row"><time>identity</time><div class="tags"><span>Okta</span><span>OAuth</span><span>OIDC</span><span>SSO</span><span>IAM</span></div></div>
+<div class="row"><time>dev tools</time><div class="tags"><span>Git</span><span>GitHub</span><span>Slack bots</span></div></div></div></section>
 
-<section id="certs"><h2><i>05</i> certifications</h2><div class="list">
+<section id="certs"><h2><i>05</i> <span class="fn">certs.json</span><span class="pr">certifications</span></h2><div class="list">
 <div class="row"><time>certification</time><div><h3>AWS Certified Solutions Architect – Associate</h3><span>Amazon Web Services</span></div></div></div></section>
 
-<section><h2><i>06</i> education</h2><div class="list">
+<section><h2><i>06</i> <span class="fn">education.md</span><span class="pr">education</span></h2><div class="list">
 <div class="row"><time>2011 — 2013</time><div><h3>California State University, East Bay</h3><span>Master's degree, Computer Science</span></div></div></div></section>
 
 <footer id="contact"><p class="links"><button type="button" id="email-link" class="linkbtn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg><span class="lbl">email</span></button><a href="https://www.linkedin.com/in/hualinding"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="lbl">linkedin</span></a><a href="https://github.com/Hualin-Ding"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="lbl">github</span></a></p><p class="copy">© 2026 Hualin Ding</p></footer>
