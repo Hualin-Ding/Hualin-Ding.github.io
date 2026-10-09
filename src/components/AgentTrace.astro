@@ -1,10 +1,10 @@
 <div class="trace" aria-hidden="true">
-	<div class="trace-head"><span>agent trace</span><span>illustrative demo · <span class="trace-run"></span></span></div>
+	<div class="trace-head"><span>agent trace</span><span class="trace-run"></span></div>
 	<div class="trace-body"></div>
 </div>
 
 <script>
-	// Looping mock agent runs (invented, generic) based on the kinds of agents I build. Plays only while on screen.
+	// Looping mock agent runs (invented, generic) based on the kinds of agents I build. The header shows which agent is running. Plays only while on screen.
 	type Step = [string, string];
 	const scenarios: { name: string; steps: Step[] }[] = [
 		{ name: 'team Q&A agent', steps: [
@@ -43,7 +43,7 @@
 	const body = document.querySelector<HTMLElement>('.trace-body');
 	const runEl = document.querySelector<HTMLElement>('.trace-run');
 	if (body && runEl) {
-		let run = 4821, timer = 0, visible = false, active = false;
+		let run = 0, timer = 0, visible = false, active = false;
 		const stamp = (i: number) => ['00:00.00', '00:00.41', '00:01.12', '00:01.30', '00:02.05', '00:02.30'][i];
 		const row = (i: number, s: Step) => {
 			const r = document.createElement('div');
@@ -59,7 +59,7 @@
 		const cursor = document.createElement('span');
 		cursor.className = 'tcur';
 		cursor.textContent = '▍';
-		const label = () => `${scenarios[run % scenarios.length].name} · run #${run}`;
+		const label = () => scenarios[run % scenarios.length].name;
 		const play = () => {
 			const steps = scenarios[run % scenarios.length].steps;
 			body.textContent = '';
