@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hualin-ding.github.io/sitemap-index.xml
