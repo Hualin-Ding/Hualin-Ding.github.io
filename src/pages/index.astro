@@ -1,0 +1,74 @@
+---
+const projects = [
+	{
+		name: 'MinionCardsWar-iOS-App',
+		description: 'A card game for iOS built with Swift.',
+		url: 'https://github.com/Hualin-Ding/MinionCardsWar-iOS-App',
+	},
+	{
+		name: 'RemoteController_ClientServer_Python',
+		description: 'A client/server remote controller written in Python.',
+		url: 'https://github.com/Hualin-Ding/RemoteController_ClientServer_Python',
+	},
+	{
+		name: 'GitHubUITesting',
+		description: 'UI testing project written in Java.',
+		url: 'https://github.com/Hualin-Ding/GitHubUITesting',
+	},
+];
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="Hualin Ding's personal portfolio" />
+		<title>Hualin Ding</title>
+	</head>
+	<body>
+		<header>
+			<h1>Hualin Ding</h1>
+			<p>Software engineer. Welcome to my portfolio.</p>
+		</header>
+		<main>
+			<section>
+				<h2>Projects</h2>
+				<ul>
+					{
+						projects.map((p) => (
+							<li>
+								<a href={p.url}>{p.name}</a>
+								<p>{p.description}</p>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+			<section>
+				<h2>Links</h2>
+				<ul>
+					<li><a href="https://github.com/Hualin-Ding">GitHub</a></li>
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>
+
+<style>
+	body {
+		font-family: system-ui, sans-serif;
+		max-width: 42rem;
+		margin: 3rem auto;
+		padding: 0 1rem;
+		line-height: 1.6;
+	}
+	li {
+		margin-bottom: 1rem;
+	}
+	li p {
+		margin: 0;
+	}
+</style>
