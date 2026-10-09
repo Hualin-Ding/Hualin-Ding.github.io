@@ -57,7 +57,7 @@ p{margin:0 0 1rem;color:var(--mute)}p b{color:var(--fg);font-weight:500}
 footer{padding:0 0 clamp(40px,8vh,80px);color:var(--dim);font-size:.85rem;text-align:center}footer p{margin:0 0 .6rem}footer .copy{color:var(--dim);font-size:.8rem}footer a{color:var(--mute)}footer a:hover{color:var(--acc)}
 .row{position:relative}.has-pop:focus-visible{outline:1px solid var(--acc);outline-offset:2px}
 .pop{position:absolute;left:150px;right:0;top:calc(100% - 4px);z-index:20;background:#1d2021;border:1px solid var(--bg1);border-radius:8px;padding:14px 18px;box-shadow:0 12px 32px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s,transform .18s,visibility .18s;pointer-events:none}
-.pop ul{margin:0;padding-left:1.1rem;color:var(--mute);font-size:.88rem;line-height:1.6}.pop li{margin:.3rem 0}.pop li::marker{color:var(--acc)}
+.pop ul{margin:0;padding-left:1.1rem;color:var(--mute);font-size:.88rem;line-height:1.6}.pop li{margin:.3rem 0}.pop li::marker{color:var(--acc)}.pop li b{color:var(--fg);font-weight:500}
 .has-pop:hover .pop,.has-pop:focus-visible .pop{opacity:1;visibility:visible;transform:none}
 @media(hover:none){.pop{position:static;grid-column:1/-1;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;border:0;padding:8px 0 0;pointer-events:auto;display:none}.has-pop.open .pop{display:block}.has-pop{cursor:pointer}.has-pop h3::after{content:" +";color:var(--acc)}.has-pop.open h3::after{content:" −"}}
 @media(max-width:600px){.row{grid-template-columns:1fr;gap:2px}.pop{left:0}}
@@ -76,30 +76,36 @@ footer{padding:0 0 clamp(40px,8vh,80px);color:var(--dim);font-size:.85rem;text-a
 @media print{
 .fn{display:none}.pr{display:inline}
 .rest{visibility:visible!important}.cur,.trace{display:none!important}
-@page{size:Letter;margin:.5in}
-:root{--fg:#111;--mute:#333;--dim:#555;--acc:#555;--bg1:#cfcbc2}
-html,body{background:#fff!important;color:#111;font-size:9.5pt;line-height:1.4}
+@page{size:Letter;margin:.5in .55in .6in;@bottom-right{content:"Hualin Ding · " counter(page) " / " counter(pages);font:7.5pt "JetBrains Mono",monospace;color:#8a8070}}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+:root{--fg:#1d1d1b;--mute:#4a4a46;--dim:#6b665c;--acc:#9a6700;--bg1:#e8e1d3}
+html,body{background:#fff!important;color:#1d1d1b;font:9.5pt/1.45 "Helvetica Neue",Helvetica,Arial,sans-serif}
 canvas,nav,.cta,.label,.avatar,#work,#contact,footer,section h2 i{display:none!important}
 .print-only{display:block}
 .page{max-width:none;padding:0}
-header{padding:0 0 10px;border-bottom:1.5px solid #111;margin-bottom:14px}
+header{background:#282828;color:#ebdbb2;border-radius:6px;padding:16px 22px 14px;margin:0 0 16px}
 .hero{display:block}
-h1{font-size:26pt;margin:0 0 4px;letter-spacing:0}
-.sub{font-size:11pt;color:#333;margin:0 0 6px;max-width:none}
-.contact{margin:0;font-size:10pt;color:#333}.contact a{color:#111;text-decoration:none}
-section{padding:0 0 10px}
-h2{font-size:10pt;font-weight:700;color:#111;text-transform:uppercase;letter-spacing:.12em;margin:0 0 6px;break-after:avoid}h2::after{background:#999}
-a{color:#111;text-decoration:none}
-p{color:#222;margin:0 0 6px}p b{color:#111}
-.list{border-top:1px solid #999}
-.row{padding:5px 0!important;background:none!important;break-inside:avoid;border-bottom:1px solid #ddd;grid-template-columns:112px 1fr;gap:0 14px}
-.row time{font-size:9pt;color:#444}.row h3{font-size:10.5pt;color:#111;break-after:avoid}.row span{font-size:9.5pt;color:#333}
+h1{font:700 27pt/1.05 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.01em;color:#ebdbb2;margin:0 0 5px}
+.sub{font-size:10.5pt;color:#fabd2f;margin:0 0 8px;max-width:none}
+.contact{margin:0;font:8.5pt "JetBrains Mono",monospace;color:#d5c4a1}.contact a{color:#ebdbb2;text-decoration:none}
+section{padding:0 0 12px}
+h2{font:700 8.5pt "JetBrains Mono",monospace;color:#9a6700;text-transform:uppercase;letter-spacing:.18em;margin:0 0 6px;break-after:avoid}h2::after{background:#d9d0c0}
+a{color:inherit;text-decoration:none}
+p{color:#2b2b28;margin:0 0 6px}p b{color:#111}
+.list{border-top:0}
+.row{padding:6px 0!important;background:none!important;break-inside:avoid;border-bottom:1px solid #e8e1d3;grid-template-columns:112px 1fr;gap:0 14px}
+.row time{font:8pt "JetBrains Mono",monospace;color:#9a6700;letter-spacing:.04em;padding-top:2px}
+.row h3{font:700 10.5pt "Helvetica Neue",Helvetica,Arial,sans-serif;color:#111;break-after:avoid}
+.row span{font-size:9.5pt;color:#4a4a46}.row h3+span{font-style:italic}
 .has-pop h3::after{content:none!important}
-.pop{display:block!important;position:static;grid-column:2;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;border:0;padding:5px 0 0;pointer-events:auto}
-.row.has-pop{display:block;position:relative;padding-left:126px!important;break-inside:auto}.row.has-pop>time{position:absolute;left:0;top:5px}.row.has-pop .pop{padding-top:5px}.pop li{break-inside:avoid}.pop ul{font-size:9.5pt;color:#222;line-height:1.35;padding-left:1.1rem;margin:0}.pop li{margin:1px 0}.pop li::marker{color:#111}
-.tags{color:#222}.tags span:not(:last-child)::after{color:#777}
+.row.has-pop>div{break-after:avoid}.row.has-pop .pop{break-before:avoid}.row.has-pop{display:block;position:relative;padding-left:126px!important;break-inside:auto}.row.has-pop>time{position:absolute;left:0;top:8px}
+.pop{display:block!important;position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:none;border:0;padding:4px 0 0;pointer-events:auto}
+.pop ul{margin:0;padding-left:1rem;font-size:9.3pt;color:#2b2b28;line-height:1.42}.pop li{margin:2px 0;break-inside:avoid}.pop li::marker{color:#9a6700}.pop li b{color:#111;font-weight:700}
 #tools .more>summary{display:none!important}
-#tools .row .tags span{display:inline-block;font-size:9.5pt;color:#222}
+#tools .row time{text-transform:uppercase;letter-spacing:.08em;font-size:7.5pt}
+#tools .list>.row:nth-child(-n+3) time{font-weight:700}#tools .list>.row:nth-child(-n+3) .tags span{font-weight:600;color:#111}
+.tags{color:#2b2b28}.tags span:not(:last-child)::after{content:"·";margin:0 .55em;color:#c4a24a}
+#tools .row .tags span{display:inline-block;font-size:9.3pt}
 #certs time{visibility:hidden}
 }
 </style>
