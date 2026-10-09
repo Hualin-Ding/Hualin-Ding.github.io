@@ -4,62 +4,91 @@
 </div>
 
 <script>
-	// Looping mock agent run (invented, generic). Plays only while on screen; static when reduced motion is on.
+	// Looping mock agent runs (invented, generic) based on the kinds of agents I build. Plays only while on screen.
+	type Step = [string, string];
+	const scenarios: { name: string; steps: Step[] }[] = [
+		{ name: 'team Q&A agent', steps: [
+			['receive', 'question arrives from a team chat channel'],
+			['authorize', 'caller identity → scoped to team knowledge ✓'],
+			['retrieve', 'vector search → 6 passages, 3 above threshold'],
+			['reason', 'draft answer grounded in 3 cited sources'],
+			['guardrail', 'policy + sensitive-data check passed ✓'],
+			['respond', 'answer posted with citations · trace logged ✓'],
+		] },
+		{ name: 'drift-detection agent', steps: [
+			['trigger', 'scheduled scan · 12 infrastructure stacks'],
+			['fetch', 'declared IaC state + live cloud state'],
+			['diff', '2 resources drifted from declared config'],
+			['reason', 'classify risk: 1 low, 1 needs review'],
+			['guardrail', 'read-only credentials · no auto-apply ✓'],
+			['report', 'ticket opened, owner notified · audit saved ✓'],
+		] },
+		{ name: 'knowledge-base agent', steps: [
+			['ingest', 'new documents detected · 14 pages'],
+			['chunk', 'clean + split → 96 chunks'],
+			['embed', 'indexed into the vector store'],
+			['evaluate', 'retrieval test on 20 questions · 18 pass'],
+			['gate', 'quality threshold ≥ 90% met ✓'],
+			['publish', 'knowledge base updated · rollback point saved ✓'],
+		] },
+		{ name: 'agent hosting platform', steps: [
+			['register', 'team agent manifest validated'],
+			['provision', 'isolated runtime on managed infrastructure'],
+			['bind', 'identity + least-privilege role attached ✓'],
+			['deploy', 'rollout complete · health checks passed'],
+			['observe', 'tracing + metrics wired · dashboard live'],
+			['govern', 'audit policy attached · ready for traffic ✓'],
+		] },
+	];
 	const body = document.querySelector<HTMLElement>('.trace-body');
 	const runEl = document.querySelector<HTMLElement>('.trace-run');
-	const steps: [string, string, string][] = [
-		['00:00.00', 'plan', 'decompose request into 3 steps'],
-		['00:00.41', 'retrieve', 'query knowledge base → 5 grounded passages'],
-		['00:01.12', 'guardrail', 'auth + policy check passed ✓'],
-		['00:01.30', 'tool', 'compare live infra vs. declared state → 2 drifted'],
-		['00:02.05', 'verify', 'cross-check findings against source ✓'],
-		['00:02.30', 'answer', 'done · 2 findings · audit log saved ✓'],
-	];
 	if (body && runEl) {
 		let run = 4821, timer = 0, visible = false, active = false;
-		const row = (s: [string, string, string]) => {
+		const stamp = (i: number) => ['00:00.00', '00:00.41', '00:01.12', '00:01.30', '00:02.05', '00:02.30'][i];
+		const row = (i: number, s: Step) => {
 			const r = document.createElement('div');
 			r.className = 'tr';
-			s.forEach((txt, i) => {
+			[stamp(i), s[0], s[1]].forEach((txt, k) => {
 				const c = document.createElement('span');
-				c.className = ['t', 's', 'm'][i];
+				c.className = ['t', 's', 'm'][k];
 				c.textContent = txt;
 				r.append(c);
 			});
 			return r;
 		};
 		const cursor = document.createElement('span');
-		cursor.className = 'cur';
+		cursor.className = 'tcur';
 		cursor.textContent = '▍';
+		const label = () => `${scenarios[run % scenarios.length].name} · run #${run}`;
 		const play = () => {
+			const steps = scenarios[run % scenarios.length].steps;
 			body.textContent = '';
-			runEl.textContent = 'run #' + run;
+			runEl.textContent = label();
 			let i = 0;
 			const next = () => {
 				if (!visible) { active = false; return; }
 				if (i >= steps.length) { cursor.remove(); timer = window.setTimeout(() => { run++; play(); }, 5000); return; }
-				const r = row(steps[i++]);
+				const r = row(i, steps[i]);
+				i++;
 				body.append(r);
 				r.querySelector('.m')?.append(cursor);
-				timer = window.setTimeout(next, 650 + Math.random() * 450);
+				timer = window.setTimeout(next, 700 + Math.random() * 500);
 			};
 			active = true;
 			next();
 		};
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-			runEl.textContent = 'run #' + run;
-			steps.forEach((s) => body.append(row(s)));
+			runEl.textContent = label();
+			scenarios[0].steps.forEach((s, i) => body.append(row(i, s)));
 		} else {
-			new IntersectionObserver((e) => {
-				visible = e[0].isIntersecting && !document.hidden;
+			const sync = () => {
+				const b = body.getBoundingClientRect();
+				visible = !document.hidden && b.top < innerHeight && b.bottom > 0;
 				if (visible && !active) play();
-				if (!visible) clearTimeout(timer), (active = false);
-			}).observe(body);
-			document.addEventListener('visibilitychange', () => {
-				visible = !document.hidden && body.getBoundingClientRect().top < innerHeight && body.getBoundingClientRect().bottom > 0;
-				if (visible && !active) play();
-				if (!visible) clearTimeout(timer), (active = false);
-			});
+				if (!visible) { clearTimeout(timer); active = false; }
+			};
+			new IntersectionObserver(sync).observe(body);
+			document.addEventListener('visibilitychange', sync);
 		}
 	}
 </script>

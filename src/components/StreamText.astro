@@ -1,29 +1,46 @@
 <script>
-	// Headline "streams" in word by word, like an LLM reply. The full text stays in the DOM (SEO, screen readers, print).
+	// The hero ("Hello, I'm" / name / headline) streams in a few characters at a time, like an LLM reply,
+	// with a cursor that follows the newest text. The full text stays in the DOM (SEO, screen readers, print).
 	const root = document.documentElement;
-	const sub = document.querySelector<HTMLElement>('.sub');
-	if (sub && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-		const words = (sub.textContent ?? '').trim().split(/\s+/);
-		sub.textContent = '';
-		const spans = words.map((w, i) => {
-			const s = document.createElement('span');
-			s.className = 'w';
-			s.textContent = w + (i < words.length - 1 ? ' ' : '');
-			sub.append(s);
-			return s;
-		});
-		sub.classList.add('streaming');
+	const targets = [...document.querySelectorAll<HTMLElement>('.hero .label, .hero h1, .hero .sub')];
+	if (!targets.length || matchMedia('(prefers-reduced-motion: reduce)').matches) {
 		root.classList.add('ready');
-		let i = 0;
-		const tick = () => {
-			const n = Math.random() < 0.35 ? 2 : 1; // chunks of 1-2 words, like tokens
-			for (let k = 0; k < n && i < spans.length; k++) spans[i++].classList.add('on');
-			if (i < spans.length) setTimeout(tick, 60 + Math.random() * 110);
-			else setTimeout(() => sub.classList.remove('streaming'), 1200);
-		};
-		setTimeout(tick, 350);
-		addEventListener('beforeprint', () => spans.forEach((s) => s.classList.add('on')));
 	} else {
+		const items = targets.map((el) => {
+			const text = (el.textContent ?? '').trim();
+			const on = document.createElement('span');
+			const rest = document.createElement('span');
+			rest.className = 'rest'; // not yet streamed: invisible but keeps the layout stable
+			rest.textContent = text;
+			el.textContent = '';
+			el.append(on, rest);
+			return { el, on, rest, text };
+		});
+		const cur = document.createElement('span');
+		cur.className = 'cur';
+		let i = 0, n = 0, stopped = false;
+		const render = (it: (typeof items)[number], upTo: number) => {
+			it.on.textContent = it.text.slice(0, upTo);
+			it.rest.textContent = it.text.slice(upTo);
+		};
+		const step = () => {
+			if (stopped) return;
+			const it = items[i];
+			if (!it) { setTimeout(() => cur.remove(), 2500); return; }
+			if (n === 0) it.el.insertBefore(cur, it.rest);
+			n = Math.min(it.text.length, n + 1 + Math.floor(Math.random() * 3)); // 1-3 characters per chunk
+			render(it, n);
+			let delay = 70 + Math.random() * 80;
+			if (/[.,&]/.test(it.text[n - 1] ?? '')) delay += 140;
+			if (n >= it.text.length) { i++; n = 0; delay += 420; }
+			setTimeout(step, delay);
+		};
 		root.classList.add('ready');
+		setTimeout(step, 500);
+		addEventListener('beforeprint', () => {
+			stopped = true;
+			items.forEach((it) => render(it, it.text.length));
+			cur.remove();
+		});
 	}
 </script>
