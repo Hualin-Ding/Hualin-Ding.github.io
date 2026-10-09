@@ -1,0 +1,65 @@
+<div class="trace" aria-hidden="true">
+	<div class="trace-head"><span>agent trace</span><span>illustrative demo · <span class="trace-run"></span></span></div>
+	<div class="trace-body"></div>
+</div>
+
+<script>
+	// Looping mock agent run (invented, generic). Plays only while on screen; static when reduced motion is on.
+	const body = document.querySelector<HTMLElement>('.trace-body');
+	const runEl = document.querySelector<HTMLElement>('.trace-run');
+	const steps: [string, string, string][] = [
+		['00:00.00', 'plan', 'decompose request into 3 steps'],
+		['00:00.41', 'retrieve', 'query knowledge base → 5 grounded passages'],
+		['00:01.12', 'guardrail', 'auth + policy check passed ✓'],
+		['00:01.30', 'tool', 'compare live infra vs. declared state → 2 drifted'],
+		['00:02.05', 'verify', 'cross-check findings against source ✓'],
+		['00:02.30', 'answer', 'done · 2 findings · audit log saved ✓'],
+	];
+	if (body && runEl) {
+		let run = 4821, timer = 0, visible = false, active = false;
+		const row = (s: [string, string, string]) => {
+			const r = document.createElement('div');
+			r.className = 'tr';
+			s.forEach((txt, i) => {
+				const c = document.createElement('span');
+				c.className = ['t', 's', 'm'][i];
+				c.textContent = txt;
+				r.append(c);
+			});
+			return r;
+		};
+		const cursor = document.createElement('span');
+		cursor.className = 'cur';
+		cursor.textContent = '▍';
+		const play = () => {
+			body.textContent = '';
+			runEl.textContent = 'run #' + run;
+			let i = 0;
+			const next = () => {
+				if (!visible) { active = false; return; }
+				if (i >= steps.length) { cursor.remove(); timer = window.setTimeout(() => { run++; play(); }, 5000); return; }
+				const r = row(steps[i++]);
+				body.append(r);
+				r.querySelector('.m')?.append(cursor);
+				timer = window.setTimeout(next, 650 + Math.random() * 450);
+			};
+			active = true;
+			next();
+		};
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			runEl.textContent = 'run #' + run;
+			steps.forEach((s) => body.append(row(s)));
+		} else {
+			new IntersectionObserver((e) => {
+				visible = e[0].isIntersecting && !document.hidden;
+				if (visible && !active) play();
+				if (!visible) clearTimeout(timer), (active = false);
+			}).observe(body);
+			document.addEventListener('visibilitychange', () => {
+				visible = !document.hidden && body.getBoundingClientRect().top < innerHeight && body.getBoundingClientRect().bottom > 0;
+				if (visible && !active) play();
+				if (!visible) clearTimeout(timer), (active = false);
+			});
+		}
+	}
+</script>

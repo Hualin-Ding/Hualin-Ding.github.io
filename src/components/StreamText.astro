@@ -1,0 +1,29 @@
+<script>
+	// Headline "streams" in word by word, like an LLM reply. The full text stays in the DOM (SEO, screen readers, print).
+	const root = document.documentElement;
+	const sub = document.querySelector<HTMLElement>('.sub');
+	if (sub && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		const words = (sub.textContent ?? '').trim().split(/\s+/);
+		sub.textContent = '';
+		const spans = words.map((w, i) => {
+			const s = document.createElement('span');
+			s.className = 'w';
+			s.textContent = w + (i < words.length - 1 ? ' ' : '');
+			sub.append(s);
+			return s;
+		});
+		sub.classList.add('streaming');
+		root.classList.add('ready');
+		let i = 0;
+		const tick = () => {
+			const n = Math.random() < 0.35 ? 2 : 1; // chunks of 1-2 words, like tokens
+			for (let k = 0; k < n && i < spans.length; k++) spans[i++].classList.add('on');
+			if (i < spans.length) setTimeout(tick, 60 + Math.random() * 110);
+			else setTimeout(() => sub.classList.remove('streaming'), 1200);
+		};
+		setTimeout(tick, 350);
+		addEventListener('beforeprint', () => spans.forEach((s) => s.classList.add('on')));
+	} else {
+		root.classList.add('ready');
+	}
+</script>

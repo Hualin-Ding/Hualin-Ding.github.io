@@ -1,11 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AgentTrace from '../components/AgentTrace.astro';
+import StreamText from '../components/StreamText.astro';
 ---
 
 <Layout
 	title="Hualin Ding — GenAI & Agentic AI Infrastructure Engineer"
 	description="Hualin Ding builds AI agent platforms and the cloud infrastructure behind them. Cloud Engineer at Workday."
 >
+<StreamText />
 <div class="page">
 <nav><span>~/hualin</span><span><a href="#about">about</a><a href="#contact">contact</a><a href="#" id="pdf">resume</a></span></nav>
 <header><div class="hero"><img class="avatar" src="/profile.jpg" width="112" height="112" alt="Portrait of Hualin Ding" /><div class="intro"><div class="label">Hello, I'm</div><h1>Hualin Ding</h1>
@@ -17,7 +20,9 @@ import Layout from '../layouts/Layout.astro';
 <p>Cloud Engineer at <b>Workday</b>, focused on designing, shipping and scaling AI agent platforms. I work hands-on from LLM prompting and agent design down to infrastructure-as-code and CI/CD, mostly in Python, on Kubernetes and AWS.</p>
 <p>Before AI, I spent years on cloud infrastructure and automation at scale. That background shapes how I treat agents: as production systems that need <b>reliability, observability and governance</b>.</p></section>
 
-<section id="work"><h2><i>02</i> what I build</h2><div class="list">
+<section id="work"><h2><i>02</i> what I build</h2>
+<AgentTrace />
+<div class="list">
 <div class="row"><time>agents</time><div><h3>Team-facing AI agents</h3><span>Chat-based Q&amp;A, knowledge-base, and infrastructure drift-detection agents.</span></div></div>
 <div class="row"><time>platform</time><div><h3>Agent hosting platform</h3><span>AWS-native infrastructure to host and manage agents across teams.</span></div></div>
 <div class="row"><time>orchestration</time><div><h3>Orchestration layers</h3><span>Harnesses for reliable, auditable AI workflows.</span></div></div>
